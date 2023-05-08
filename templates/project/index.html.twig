@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List projects!{% endblock %}
+
+
+{% block body %}
+    <h1>List projects</h1>
+    <form method="post">
+    <div class="d-flex">
+    
+    <select name="name" class="form-select w-25 p-3 m-1" aria-label="Default select example">
+        <option value="" selected disabled hidden>Project Name</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+    </select>
+    <select name="status" class="form-select w-25 p-3 m-1" aria-label="Default select example">
+        <option value="" selected disabled hidden>Project status</option>
+        <option value="IN_PROGRESS">In progress</option>
+        <option value="DONE">Done</option>
+        <option value="BLOCKED">Blocked</option>
+    <input name="q" class="form-select w-50 p-3 m-1" type="text" placeholder="File Name or Url">
+    <button class="w-20 btn btn-lg btn-secondary" type="submit"><i class="fa fa-filter h-25 w-25"></i></button>
+    </div>
+    </form>
+
+    <div class="d-flex">
+        {% for project in projects.results %}
+            <div class="card p-2 m-2" style="width: 18rem;">
+            <img src="{{ project.image is not null ? '/projects/' ~ project.image}}" class="card-img-top h-50" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ project.title }}</h5>
+                {# <p class="card-text">{{ project.description }}</p> #}
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+             <a href="{{ path('admin_project_edit', {id: project.id}) }}" class="btn btn-sm btn-primary">
+                <i class="fa fa-edit" aria-hidden="true"></i> Edit project
+             </a>
+            {% endif %}
+            <div class="card-body">
+                <span class="card-link">Last Updated {{ project.updatedAt|format_datetime('medium', 'short', '', 'UTC') }}</span>
+                <span class="card-link">{{ project.tasknumber  }} tasks</span>
+            </div>
+            </div>
+
+        {% else %}
+            <tr>
+                <td colspan="4" align="center">{{ 'project.no_projects_found'|trans }}</td>
+           </tr>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <div class="section actions">
+        <a href="{{ path('admin_project_new') }}" class="btn btn-lg btn-block btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i> {{ 'action.create_project'|trans }}
+        </a>
+    </div>
+
+    {{ parent() }}
+
+    {# {{ show_source_code(_self) }} #}
+{% endblock %}

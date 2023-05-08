@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'admin_project_show' %}
+
+{% block body %}
+    <h1>{{ project.title }}</h1>
+
+    <p class="project-metadata">
+        <span class="metadata"><img src="{{ project.image is not null ? '/projects/' ~ project.image}}" alt="" class="w-25px"></span>
+
+        <span class="metadata"><i class="fa fa-calendar"></i> {{ project.updatedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
+        <span class="metadata"><i class="fa fa-user"></i> {{ project.owner.email }}</span>
+    </p>
+
+    
+
+    {{ project.description|markdown_to_html|sanitize_html }}
+
+{% endblock %}
+

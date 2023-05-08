@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>{{ 'title.edit_post'|trans({'id': project.id}) }}</h1>
+
+        {{ form_start(form, {attr: attr|default({})}) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="{{ button_css|default("btn btn-primary") }}">
+                <i class="fa fa-save" aria-hidden="true"></i> create
+            </button>
+
+                <a href="{{ path('admin_project_index') }}" class="btn btn-link">
+                    <i class="fa fa-list-alt" aria-hidden="true"></i> {{ 'action.back_to_list'|trans }}
+                </a>
+        {{ form_end(form) }}
+
+{% endblock %}
+

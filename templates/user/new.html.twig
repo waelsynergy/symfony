@@ -1,0 +1,35 @@
+{# {% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <h1>Create new User</h1>
+
+    {{ include('user/_form.html.twig') }}
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+<h1>Create new User</h1>
+
+{{ form_start(form, {'attr': {'id': 'new_edit_utilisateur'}}) }}
+        <div class="row">
+                <div class="col-12">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                </div>
+                <div class="col-12">
+                        {{ form_label(form.password) }}
+                        {{ form_widget(form.password) }}
+                </div>
+        </div>
+        <button class="btn btn-success">Save</button>
+{{ form_end(form) }}
+
+<a href="{{ path('app_user_index') }}">back to list</a>
+{% endblock %}
